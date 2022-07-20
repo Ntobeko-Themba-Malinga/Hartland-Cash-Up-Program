@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox
 from win32printing import Printer
 from datetime import date
 
@@ -10,21 +11,34 @@ def print_function():
     bar = float(total_entry.get()) - food
     total = food + bar
 
-    patty_cash = float(patty_cash_entry.get())
-    cash = float(cash_entry.get()) - patty_cash
-    card = float(card_entry.get())
-    other = float(other_entry.get())
+    speed_point = float(speed_point_entry.get())
 
+    patty_cash = float(patty_cash_entry.get())
+    cash = float(cash_entry.get()) - patty_cash  
+    
+    card = float(card_entry.get())
     card_tips = float(card_tips_entry.get())
     card_car_wash = float(car_wash_entry.get())
+    total_card = card + card_tips + card_car_wash
+
+    other = float(other_entry.get())
     
     total_sales = patty_cash + cash + card + other
 
-    cash_up = f"\t{day}\n\nFood: R{food:0,.2f}\nBar: R{bar:0,.2f}\nTotal: R{total:0,.2f}\n\n" \
-              +f"Patty cash: R{patty_cash:0,.2f}\nCash: R{cash:0,.2f}\nCard: R{card:0,.2f}\nTotal sales: R{total_sales:0,.2f}"
+    if card_tips > 0 and int(card_car_wash) == 0:
+        cash_up = f"\t{day}\n\nFood: R{food:0,.2f}\nBar: R{bar:0,.2f}\nTotal: R{total:0,.2f}\n\n" \
+                +f"Patty cash: R{patty_cash:0,.2f}\nCash: R{cash:0,.2f}\n     +R{card_tips:0,.2f}tips\nCard: R{card:0,.2f}\nTotal sales: R{total_sales:0,.2f}"
+    elif int(card_tips) == 0 and card_car_wash > 0:
+        cash_up = f"\t{day}\n\nFood: R{food:0,.2f}\nBar: R{bar:0,.2f}\nTotal: R{total:0,.2f}\n\n" \
+                +f"Patty cash: R{patty_cash:0,.2f}\nCash: R{cash:0,.2f}\n     +R{card_car_wash:0,.2f}carwash\nCard: R{card:0,.2f}\nTotal sales: R{total_sales:0,.2f}"
+    elif card_tips > 0 and card_car_wash > 0:
+        cash_up = f"\t{day}\n\nFood: R{food:0,.2f}\nBar: R{bar:0,.2f}\nTotal: R{total:0,.2f}\n\n" \
+                +f"Patty cash: R{patty_cash:0,.2f}\nCash: R{cash:0,.2f}\n     +R{card_tips:0,.2f}tips\n     +R{card_car_wash:0,.2f}carwash\nCard: R{card:0,.2f}\nTotal sales: R{total_sales:0,.2f}"
+    else:
+        cash_up = f"\t{day}\n\nFood: R{food:0,.2f}\nBar: R{bar:0,.2f}\nTotal: R{total:0,.2f}\n\n" \
+                +f"Patty cash: R{patty_cash:0,.2f}\nCash: R{cash:0,.2f}\nCard: R{card:0,.2f}\nTotal sales: R{total_sales:0,.2f}"
 
-    #with open('cashup.txt', 'w') as f:
-    #    f.write(cash_up)
+
     printer_name = printer_name_entry.get()
     font_size = int(font_size_entry.get())
 
@@ -32,28 +46,21 @@ def print_function():
         "height": font_size
     }
 
-    with Printer(linegap=1) as printer:
-        printer.printer_name = printer_name
-        printer.text(cash_up, font_config=font)
-
-    # p = win32print.OpenPrinter(printer_name)
-    # job = win32print.StartDocPrinter(p, 1, ("test of raw data", None, "RAW"))
-    # win32print.DocumentProperties()
-    # win32print.StartPagePrinter(p)
-    # win32print.WritePrinter(p, bytes(cash_up, encoding='utf8'))
-    # win32print.EndPagePrinter (p)
-
-    # dc = win32ui.CreateDC()
-    # dc.CreatePrinterDC(printer_name)
-    # dc.StartDoc('Test document')
-    # dc.StartPage()
-    # font_size = int(font_size_entry.get())
-    # fontdata = {'name':'Consolas', 'height':font_size, 'italic':False, 'weight':win32con.FW_NORMAL}
-    # font = win32ui.CreateFont(fontdata)
-    # dc.SelectObject(font)
-    # dc.TextOut(0, len(cash_up), cash_up)
-    # dc.EndPage()
-    # dc.EndDoc()
+    if total_card == speed_point:
+        if total_sales == total:
+            with Printer(linegap=1) as printer:
+                printer.printer_name = printer_name
+                printer.text(cash_up, font_config=font)
+        else:
+            messagebox.showerror(
+                title="Cash Up Error",
+                message="Machine total and total sales don't match."
+            )
+    else:
+        messagebox.showerror(
+            title="Cash Up Error",
+            message="Machine card and speed point don't match."
+        )
 
 
 FONT = font=('Calibri', 18)
@@ -135,18 +142,32 @@ cash_entry = tk.Entry(
 cash_entry.grid(row=4, column=1, pady=PAD_Y, padx=PAD_X)
 cash_entry.insert(0, '0')
 
+# Speed point
+speed_point_label = tk.Label(
+    master=frame1,
+    text="SPEED POINT:",
+    font=FONT
+)
+speed_point_label.grid(row=5, column=0)
+speed_point_entry = tk.Entry(
+    master=frame1,
+    font=FONT
+)
+speed_point_entry.grid(row=5, column=1, pady=PAD_Y, padx=PAD_X)
+speed_point_entry.insert(0, '0')
+
 # Card
 card_label = tk.Label(
     master=frame1,
     text="CARD:",
     font=FONT
 )
-card_label.grid(row=5, column=0)
+card_label.grid(row=6, column=0)
 card_entry = tk.Entry(
     master=frame1,
     font=FONT
 )
-card_entry.grid(row=5, column=1, pady=PAD_Y, padx=PAD_X)
+card_entry.grid(row=6, column=1, pady=PAD_Y, padx=PAD_X)
 card_entry.insert(0, '0')
 
 # Card tips
@@ -155,12 +176,12 @@ card_tips_label = tk.Label(
     text="CARD TIPS:",
     font=FONT
 )
-card_tips_label.grid(row=6, column=0)
+card_tips_label.grid(row=7, column=0)
 card_tips_entry = tk.Entry(
     master=frame1,
     font=FONT
 )
-card_tips_entry.grid(row=6, column=1, pady=PAD_Y, padx=PAD_X)
+card_tips_entry.grid(row=7, column=1, pady=PAD_Y, padx=PAD_X)
 card_tips_entry.insert(0, '0')
 
 # Car wash
@@ -169,12 +190,12 @@ car_wash_label = tk.Label(
     text="CAR WASH:",
     font=FONT
 )
-car_wash_label.grid(row=7, column=0)
+car_wash_label.grid(row=8, column=0)
 car_wash_entry = tk.Entry(
     master=frame1,
     font=FONT
 )
-car_wash_entry.grid(row=7, column=1, pady=PAD_Y, padx=PAD_X)
+car_wash_entry.grid(row=8, column=1, pady=PAD_Y, padx=PAD_X)
 car_wash_entry.insert(0, '0')
 
 # Other
@@ -183,12 +204,12 @@ other_label = tk.Label(
     text="OTHER:",
     font=FONT
 )
-other_label.grid(row=8, column=0)
+other_label.grid(row=9, column=0)
 other_entry = tk.Entry(
     master=frame1,
     font=FONT
 )
-other_entry.grid(row=8, column=1, pady=PAD_Y, padx=PAD_X)
+other_entry.grid(row=9, column=1, pady=PAD_Y, padx=PAD_X)
 other_entry.insert(0, '0')
 
 # printer
@@ -196,12 +217,12 @@ printer_name_label = tk.Label(
     master=frame1,
     text="PRINTER NAME:"
 )
-printer_name_label.grid(row=9, column=0)
+printer_name_label.grid(row=10, column=0)
 printer_name_entry = tk.Entry(
     master=frame1,
     font=("Calibri", 12)
 )
-printer_name_entry.grid(row=9, column=1, pady=PAD_Y, padx=PAD_X)
+printer_name_entry.grid(row=10, column=1, pady=PAD_Y, padx=PAD_X)
 printer_name_entry.insert(0, 'RONGTA 80mm Series Printer')
 
 # Font size
@@ -209,12 +230,12 @@ font_size_label = tk.Label(
     master=frame1,
     text='FONT SIZE'
 )
-font_size_label.grid(row=10, column=0)
+font_size_label.grid(row=11, column=0)
 font_size_entry = tk.Entry(
     master=frame1,
     font=("Calibri", 12)
 )
-font_size_entry.grid(row=10, column=1)
+font_size_entry.grid(row=11, column=1)
 font_size_entry.insert(0, '18')
 
 
@@ -225,7 +246,7 @@ print_button = tk.Button(
     font=FONT,
     command=print_function
 )
-print_button.grid(row=11, column=0, columnspan=2, pady=10)
+print_button.grid(row=12, column=0, columnspan=2, pady=10)
 
 
 
