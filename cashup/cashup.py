@@ -29,29 +29,29 @@ def print_function():
     if int(other) == 0:
         if card_tips > 0 and int(card_car_wash) == 0:
             cash_up = f"\t{day}\n\nFood: R{food:0,.2f}\nBar: R{bar:0,.2f}\nTotal: R{total:0,.2f}\n\n" \
-                    +f"Patty cash: R{patty_cash:0,.2f}\nCash: R{cash:0,.2f}\nCard: R{card:0,.2f}\n     +R{card_tips:0,.2f}tips\nTotal sales: R{total_sales:0,.2f}"
+                    +f"Petty cash: R{patty_cash:0,.2f}\nCash: R{cash:0,.2f}\nCard: R{card:0,.2f}\n     +R{card_tips:0,.2f}tips\nTotal sales: R{total_sales:0,.2f}"
         elif int(card_tips) == 0 and card_car_wash > 0:
             cash_up = f"\t{day}\n\nFood: R{food:0,.2f}\nBar: R{bar:0,.2f}\nTotal: R{total:0,.2f}\n\n" \
-                    +f"Patty cash: R{patty_cash:0,.2f}\nCash: R{cash:0,.2f}\nCard: R{card:0,.2f}\n     +R{card_car_wash:0,.2f}carwash\nTotal sales: R{total_sales:0,.2f}"
+                    +f"Petty cash: R{patty_cash:0,.2f}\nCash: R{cash:0,.2f}\nCard: R{card:0,.2f}\n     +R{card_car_wash:0,.2f}carwash\nTotal sales: R{total_sales:0,.2f}"
         elif card_tips > 0 and card_car_wash > 0:
             cash_up = f"\t{day}\n\nFood: R{food:0,.2f}\nBar: R{bar:0,.2f}\nTotal: R{total:0,.2f}\n\n" \
-                    +f"Patty cash: R{patty_cash:0,.2f}\nCash: R{cash:0,.2f}\nCard: R{card:0,.2f}\n     +R{card_tips:0,.2f}tips\n     +R{card_car_wash:0,.2f}carwash\nTotal sales: R{total_sales:0,.2f}"
+                    +f"Petty cash: R{patty_cash:0,.2f}\nCash: R{cash:0,.2f}\nCard: R{card:0,.2f}\n     +R{card_tips:0,.2f}tips\n     +R{card_car_wash:0,.2f}carwash\nTotal sales: R{total_sales:0,.2f}"
         else:
             cash_up = f"\t{day}\n\nFood: R{food:0,.2f}\nBar: R{bar:0,.2f}\nTotal: R{total:0,.2f}\n\n" \
-                    +f"Patty cash: R{patty_cash:0,.2f}\nCash: R{cash:0,.2f}\nCard: R{card:0,.2f}\nTotal sales: R{total_sales:0,.2f}"
+                    +f"Petty cash: R{patty_cash:0,.2f}\nCash: R{cash:0,.2f}\nCard: R{card:0,.2f}\nTotal sales: R{total_sales:0,.2f}"
     else:
         if card_tips > 0 and int(card_car_wash) == 0:
             cash_up = f"\t{day}\n\nFood: R{food:0,.2f}\nBar: R{bar:0,.2f}\nTotal: R{total:0,.2f}\n\n" \
-                    +f"Patty cash: R{patty_cash:0,.2f}\nCash: R{cash:0,.2f}\nCard: R{card:0,.2f}\n     +R{card_tips:0,.2f}tips\nOther: R{other:0,.2f}\nTotal sales: R{total_sales:0,.2f}"
+                    +f"Petty cash: R{patty_cash:0,.2f}\nCash: R{cash:0,.2f}\nCard: R{card:0,.2f}\n     +R{card_tips:0,.2f}tips\nOther: R{other:0,.2f}\nTotal sales: R{total_sales:0,.2f}"
         elif int(card_tips) == 0 and card_car_wash > 0:
             cash_up = f"\t{day}\n\nFood: R{food:0,.2f}\nBar: R{bar:0,.2f}\nTotal: R{total:0,.2f}\n\n" \
-                    +f"Patty cash: R{patty_cash:0,.2f}\nCash: R{cash:0,.2f}\nCard: R{card:0,.2f}\n     +R{card_car_wash:0,.2f}carwash\nOther: R{other:0,.2f}\nTotal sales: R{total_sales:0,.2f}"
+                    +f"Petty cash: R{patty_cash:0,.2f}\nCash: R{cash:0,.2f}\nCard: R{card:0,.2f}\n     +R{card_car_wash:0,.2f}carwash\nOther: R{other:0,.2f}\nTotal sales: R{total_sales:0,.2f}"
         elif card_tips > 0 and card_car_wash > 0:
             cash_up = f"\t{day}\n\nFood: R{food:0,.2f}\nBar: R{bar:0,.2f}\nTotal: R{total:0,.2f}\n\n" \
-                    +f"Patty cash: R{patty_cash:0,.2f}\nCash: R{cash:0,.2f}\nCard: R{card:0,.2f}\n     +R{card_tips:0,.2f}tips\n     +R{card_car_wash:0,.2f}carwash\nOther: R{other:0,.2f}\nTotal sales: R{total_sales:0,.2f}"
+                    +f"Petty cash: R{patty_cash:0,.2f}\nCash: R{cash:0,.2f}\nCard: R{card:0,.2f}\n     +R{card_tips:0,.2f}tips\n     +R{card_car_wash:0,.2f}carwash\nOther: R{other:0,.2f}\nTotal sales: R{total_sales:0,.2f}"
         else:
             cash_up = f"\t{day}\n\nFood: R{food:0,.2f}\nBar: R{bar:0,.2f}\nTotal: R{total:0,.2f}\n\n" \
-                    +f"Patty cash: R{patty_cash:0,.2f}\nCash: R{cash:0,.2f}\nCard: R{card:0,.2f}\nOther: R{other:0,.2f}\nTotal sales: R{total_sales:0,.2f}"
+                    +f"Petty cash: R{patty_cash:0,.2f}\nCash: R{cash:0,.2f}\nCard: R{card:0,.2f}\nOther: R{other:0,.2f}\nTotal sales: R{total_sales:0,.2f}"
 
     printer_name = printer_name_entry.get()
     font_size = int(font_size_entry.get())
