@@ -7,24 +7,42 @@ from datetime import date
 def print_function():
     day = date_entry.get()
 
-    food = float(food_entry.get())
-    bar = float(total_entry.get()) - food
-    total = food + bar
+    try:
+        food = float(food_entry.get())
+        bar = float(total_entry.get()) - food
+        total = food + bar
 
-    speed_point = float(speed_point_entry.get())
+        speed_point = float(speed_point_entry.get())
 
-    patty_cash = float(patty_cash_entry.get())
-    cash = float(cash_entry.get()) - patty_cash  
-    
-    card = float(card_entry.get())
-    card_tips = float(card_tips_entry.get())
-    card_car_wash = float(car_wash_entry.get())
-    total_card = card + card_tips + card_car_wash
+        patty_cash = float(patty_cash_entry.get())
+        cash = float(cash_entry.get()) - patty_cash  
+        
+        card = float(card_entry.get())
+        card_tips = float(card_tips_entry.get())
+        card_car_wash = float(car_wash_entry.get())
+        total_card = card + card_tips + card_car_wash
 
-    other = float(other_entry.get())
-    
-    total_sales = patty_cash + cash + card + other
+        other = float(other_entry.get())
+        
+        total_sales = patty_cash + cash + card + other
+    except Exception as e:
+        food = float(0)
+        bar = float(0) - food
+        total = food + bar
 
+        speed_point = float(0)
+
+        patty_cash = float(0)
+        cash = float(0) - patty_cash  
+        
+        card = float(0)
+        card_tips = float(0)
+        card_car_wash = float(0)
+        total_card = card + card_tips + card_car_wash
+
+        other = float(0)
+        
+        total_sales = patty_cash + cash + card + other
 
     if int(other) == 0:
         if card_tips > 0 and int(card_car_wash) == 0:
